@@ -359,8 +359,8 @@ canvas{display:none}
     <div class="card">
       <div class="card-hd"><span class="card-hd-ico">🖼️</span><div><h2>Image to Prompt</h2><p>Upload any image — get a detailed AI video prompt</p></div></div>
       <div class="card-bd">
-        <div class="upload-z" id="iz" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="dropFile(event,'image','iz','ipv','ifi','ifn',null)">
-          <input type="file" id="i-inp" accept="image/*" onchange="loadMedia(this,'image','ipv','ifi','ifn',null,'i-inp','iz')">
+        <div class="upload-z" id="iz" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="dropFile(event,'image','iz','ipv','ifi','ifn','iimg')">
+          <input type="file" id="i-inp" accept="image/*" onchange="loadMedia(this,'image','ipv','ifi','ifn','iimg','i-inp','iz')">
           <div class="u-ico">🖼️</div>
           <div class="u-title">Drop image here or tap to upload</div>
           <div class="u-sub">JPG, PNG, WebP, GIF — any size</div>
