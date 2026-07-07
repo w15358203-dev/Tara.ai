@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="Tara AI — Image to Prompt. Upload any image and get a detailed AI video or image prompt matching its style.">
+<title>Image to Prompt — Tara AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><span class="logo-gem"><svg width="18" height="18" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 8L24 16L11 24V8Z" fill="white"/><path d="M25 4L26.2 7.8L30 9L26.2 10.2L25 14L23.8 10.2L20 9L23.8 7.8L25 4Z" fill="white"/></svg></span>Tara AI</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#features">Features</a>
+    <a href="index.html#faq">FAQ</a>
+    <a href="index.html#blog">Blog</a>
+  </div>
+  <div class="nav-right">
+    <button class="nbtn ghost" onclick="showAuth('login')">Log in</button>
+    <button class="nbtn solid" onclick="showAuth('signup')">Sign up free</button>
+  </div>
+</nav>
+
+<div id="tools" class="tool-section" style="padding-top:2.5rem">
+  <div class="tab-row">
+    <a class="tab" href="video-to-prompt.html" target="_blank">📹 Video to Prompt</a>
+    <a class="tab on" href="image-to-prompt.html">🖼️ Image to Prompt</a>
+    <a class="tab" href="text-to-prompt.html" target="_blank">✍️ Text to Prompt</a>
+    <a class="tab" href="voiceover-script.html" target="_blank">🎙️ Voiceover Script</a>
+    <a class="tab" href="storyboard.html" target="_blank">🎞️ Storyboard</a>
+  </div>
+
+  <!-- ══ IMAGE TO PROMPT ══ -->
+  <div class="panel" id="panel-i2p">
+    <div class="card">
+      <div class="card-hd"><span class="card-hd-ico">🖼️</span><div><h2>Image to Prompt</h2><p>Upload any image — get a detailed AI video prompt</p></div></div>
+      <div class="card-bd">
+        <div class="upload-z" id="iz" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="dropFile(event,'image','iz','ipv','ifi','ifn','iimg')">
+          <input type="file" id="i-inp" accept="image/*" onchange="loadMedia(this,'image','ipv','ifi','ifn','iimg','i-inp','iz')">
+          <div class="u-ico">🖼️</div>
+          <div class="u-title">Drop image here or tap to upload</div>
+          <div class="u-sub">JPG, PNG, WebP, GIF — any size</div>
+        </div>
+        <div class="preview-wrap" id="ipv">
+          <img id="iimg" alt="preview">
+          <div class="file-info"><span class="fi-txt" id="ifn">image.jpg</span><button class="fi-rm" onclick="clearMedia('ipv','iimg','i-inp','iz',false)">✕ Remove</button></div>
+        </div>
+        <br>
+        <div class="row2">
+          <div class="f"><label>Output type</label>
+            <div class="chips" id="i-ot"><div class="chip on" data-v="video prompt">Video Prompt</div><div class="chip" data-v="image prompt">Image Prompt</div><div class="chip" data-v="both">Both</div></div>
+          </div>
+        </div>
+        <div class="f"><label>Extra instructions <span class="opt">(optional)</span></label><input type="text" id="i-ex" placeholder="e.g. add rain, sunset lighting, dramatic score…"></div>
+        <button class="gen-btn" id="i-btn" onclick="analyzeImage()" disabled>🖼️ Generate prompt from image</button>
+        <div class="load-row" id="i-load"><div class="spin"></div><span class="load-txt" id="i-ltxt">Analyzing image…</span></div>
+        <div class="out-wrap" id="i-out">
+          <div class="out-hd"><h3>🖼️ Generated prompt</h3><button class="copy-all" onclick="copyAll('i-alltext')">Copy all</button></div>
+          <div id="i-scenes"></div>
+          <div class="ok-msg" id="i-ok">Copied!</div>
+          <button class="reset-btn" onclick="resetPanel('i-out','ipv','iimg','i-inp','iz',false)">↺ Start over</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- ── FOOTER ─────────────────────────────────────── -->
+<footer>
+  <div class="ft">
+    <div class="ft-top">
+      <div class="ft-brand">
+        <div class="nav-logo" style="display:flex;align-items:center;gap:9px;font-family:var(--display);font-weight:800;font-size:1.1rem;margin-bottom:.6rem"><span class="logo-gem"><svg width="18" height="18" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 8L24 16L11 24V8Z" fill="white"/><path d="M25 4L26.2 7.8L30 9L26.2 10.2L25 14L23.8 10.2L20 9L23.8 7.8L25 4Z" fill="white"/></svg></span> Tara AI</div>
+        <p>Turn any video or image into professional AI prompts for any AI video tool.</p>
+      </div>
+      <div class="ft-col">
+        <h4>Tools</h4>
+        <a href="video-to-prompt.html" target="_blank">Video to Prompt</a>
+        <a href="image-to-prompt.html" target="_blank">Image to Prompt</a>
+        <a href="text-to-prompt.html" target="_blank">Text to Prompt</a>
+        <a href="voiceover-script.html" target="_blank">Voiceover Script</a>
+        <a href="storyboard.html" target="_blank">Storyboard</a>
+      </div>
+      <div class="ft-col">
+        <h4>Legal</h4>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Use</a>
+        <a href="mailto:support@tara.ai">Contact Us</a>
+      </div>
+    </div>
+    <div class="ft-bot"><span>© 2025 Tara AI. All rights reserved.</span><span>Made with ❤️ for creators</span></div>
+  </div>
+</footer>
+
+
+<!-- ── AUTH MODAL ─────────────────────────────────── -->
+<div id="auth-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:var(--bg2);border:1px solid var(--bd2);border-radius:var(--r3);padding:2rem;width:100%;max-width:420px;position:relative">
+    <button onclick="document.getElementById('auth-modal').style.display='none'" style="position:absolute;top:14px;right:14px;background:none;border:none;color:var(--s3);font-size:18px;cursor:pointer">✕</button>
+    <div style="text-align:center;margin-bottom:1.5rem">
+      <div style="font-family:var(--display);font-weight:800;font-size:1.3rem;color:#fff;margin-bottom:3px">Tara AI</div>
+      <div id="auth-sub" style="font-size:13px;color:var(--s3)">Create your free account</div>
+    </div>
+    <div style="display:flex;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:3px;gap:3px;margin-bottom:1.25rem">
+      <button id="tab-su" onclick="setAuthTab('signup')" style="flex:1;padding:8px;border-radius:8px;border:none;font-size:13.5px;font-weight:500;background:var(--acc);color:#fff;cursor:pointer">Sign up</button>
+      <button id="tab-li" onclick="setAuthTab('login')" style="flex:1;padding:8px;border-radius:8px;border:none;font-size:13.5px;font-weight:500;background:transparent;color:var(--s2);cursor:pointer">Log in</button>
+    </div>
+    <div id="auth-su">
+      <div class="f"><label>Name</label><input type="text" id="au-name" placeholder="Your name"></div>
+      <div class="f"><label>Email</label><input type="email" id="au-email" placeholder="you@example.com"></div>
+      <div class="f"><label>Password</label><input type="password" id="au-pass" placeholder="At least 8 characters"></div>
+      <button class="gen-btn" onclick="doAuth('signup',this)">Create free account</button>
+    </div>
+    <div id="auth-li" style="display:none">
+      <div class="f"><label>Email</label><input type="email" id="li-email" placeholder="you@example.com"></div>
+      <div class="f"><label>Password</label><input type="password" id="li-pass" placeholder="Your password"></div>
+      <button class="gen-btn" onclick="doAuth('login',this)">Log in</button>
+    </div>
+    <div id="auth-ok" style="display:none;text-align:center;padding:1.5rem 0">
+      <div style="font-size:2.5rem;margin-bottom:.75rem">🎉</div>
+      <div style="font-size:16px;font-weight:600;color:#fff;margin-bottom:.4rem" id="auth-ok-title">Account created!</div>
+      <div style="font-size:13px;color:var(--s2)">You can now save prompts and access all features.</div>
+    </div>
+    <div style="font-size:11.5px;color:var(--s3);text-align:center;margin-top:.85rem">By continuing you agree to our <a href="terms.html" style="color:var(--acc2)">Terms</a> and <a href="privacy.html" style="color:var(--acc2)">Privacy Policy</a>.</div>
+  </div>
+</div>
+
+
+<script src="app.js"></script>
+</body>
+</html>
